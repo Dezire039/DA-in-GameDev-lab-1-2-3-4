@@ -1,15 +1,14 @@
 # АНАЛИЗ ДАННЫХ И ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ [in GameDev]
-Отчет по лабораторной работе #2 выполнил(а):
-- Чашкин Никита Андреевич
-- РИ210941
-
+Отчет по лабораторной работе #1 выполнил(а):
+- Буторина Анна Георгиевна
+- РИ211002
 Отметка о выполнении заданий (заполняется студентом):
 
 | Задание | Выполнение | Баллы |
 | ------ | ------ | ------ |
 | Задание 1 | * | 60 |
-| Задание 2 | * | 20 |
-| Задание 3 | * | 20 |
+| Задание 2 | # | 20 |
+| Задание 3 | # | 20 |
 
 знак "*" - задание выполнено; знак "#" - задание не выполнено;
 
@@ -18,257 +17,104 @@
 - к.э.н., доцент Панов М.А.
 - ст. преп., Фадеев В.О.
 
+[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
+
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
+Структура отчета
+
+- Данные о работе: название работы, фио, группа, выполненные задания.
+- Цель работы.
+- Задание 1.
+- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
+- Задание 2.
+- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
+- Задание 3.
+- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
+- Выводы.
+- ✨Magic ✨
+
 ## Цель работы
-Познакомиться с программными средствами для организции передачи данных между инструментами google, Python и Unity
+Ознакомиться с основными операторами зыка Python на примере реализации линейной регрессии.
 
 ## Задание 1
-### Реализовать совместную работу и передачу данных в связке Python - Google-Sheets – Unity.
+### Написать программы Hello World на Python и Unity
+Ход работы:
+Скриншот с демонстрацией сохранения документа на google.colab на свой диск с запуском программы выводящей сообщение Hello World: 
+<img width="954" alt="2022-09-26 (1)" src="https://user-images.githubusercontent.com/114075427/192246835-e0a228c2-3118-4e07-aa24-56b65fc89ece.png">
 
-Подключил API для работы с Google Sheets:
+Скриншот вывода сообщения Hello World в консоль Unity: 
+<img width="956" alt="2022-09-22 (1)" src="https://user-images.githubusercontent.com/114075427/192246901-4c9a8a89-1dbe-405e-85ba-209f3f8c73a6.png">
 
-![image](https://user-images.githubusercontent.com/87475288/194066762-45a42abe-1534-4dd1-a63a-d9d8f1b14d71.png)
 
-Python код для записи данных из скрипта в Google Sheets:
 
-```py
-import gspread
-import numpy as np
+## Задание 2
+### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
 
-gc = gspread.service_account(filename='unitydatascience-364516-d5142e967d57.json')
-sh = gc.open("UnitySheets")
-price = np.random.randint(2000, 10000, 11)
-for i in range(1, 12):
-    tempInf = str(((price[i - 1] - price[i - 2]) / price[i - 2]) * 100)
-    tempInf = tempInf.replace('.', ',')
-    sh.sheet1.update(f'A{i}', str(i))
-    sh.sheet1.update(f'B{i}', str(price[i - 1]))
-    sh.sheet1.update(f'C{i}', str(tempInf))
-    print(f'{i}\t{tempInf}')
-
-```
-
-Создал Unity проект и написал скрипт для получения данных из Google Sheets:
-
-```C#
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
-using SimpleJSON;
-
-public class NewBehaviourScript : MonoBehaviour
-{
-    public AudioClip goodSpeak;
-    public AudioClip normalSpeak;
-    public AudioClip badSpeak;
-    private AudioSource selectAudio;
-    private Dictionary<string, float> dataSet = new();
-    private bool statusStart = false;
-    private int i = 1;
-
-    void Start()
-    {
-        StartCoroutine(GoogleSheets());
-    }
-    
-    IEnumerator GoogleSheets()
-    {
-        UnityWebRequest curentResp =
-            UnityWebRequest.Get(
-                "https://sheets.googleapis.com/v4/spreadsheets/1rwDRyBppb0PxRqmkm4YcOo6ly1daXr3dHR3ULpX8HMg/values/Sheet1?key=*API-Ключ*");
-        yield return curentResp.SendWebRequest();
-        string rawResp = curentResp.downloadHandler.text;
-        var rawJson = JSON.Parse(rawResp);
-        foreach (var itemRawJson in rawJson["values"])
-        {
-            var parseJson = JSON.Parse(itemRawJson.ToString());
-            var selectRow = parseJson[0].AsStringList;
-            dataSet.Add(("Mon_" + selectRow[0]), float.Parse(selectRow[2]));
-        }
-    }
-```
-
-Добавил функционал для воспроизведения аудио в зависимости от полученных данных:
-
-```C#
-    void Update()
-    {
-        if (dataSet["Mon_" + i.ToString()] <= 10 & statusStart == false & i != dataSet.Count)
-        {
-            StartCoroutine(PlaySelectAudioGood());
-            Debug.Log(dataSet["Mon_" + i.ToString()]);
-        }
-
-        if (dataSet["Mon_" + i.ToString()] > 10 & dataSet["Mon_" + i.ToString()] < 100 & statusStart == false &
-            i != dataSet.Count)
-        {
-            StartCoroutine(PlaySelectAudioNormal());
-            Debug.Log(dataSet["Mon_" + i.ToString()]);
-        }
-
-        if (dataSet["Mon_" + i.ToString()] >= 100 & statusStart == false & i != dataSet.Count)
-        {
-            StartCoroutine(PlaySelectAudioBad());
-            Debug.Log(dataSet["Mon_" + i.ToString()]);
-        }
-    }
-    
-    IEnumerator PlaySelectAudioGood()
-    {
-        statusStart = true;
-        selectAudio = GetComponent<AudioSource>();
-        selectAudio.clip = goodSpeak;
-        selectAudio.Play();
-        yield return new WaitForSeconds(3);
-        statusStart = false;
-        i++;
-    }
-
-    IEnumerator PlaySelectAudioNormal()
-    {
-        statusStart = true;
-        selectAudio = GetComponent<AudioSource>();
-        selectAudio.clip = normalSpeak;
-        selectAudio.Play();
-        yield return new WaitForSeconds(3);
-        statusStart = false;
-        i++;
-    }
-
-    IEnumerator PlaySelectAudioBad()
-    {
-        statusStart = true;
-        selectAudio = GetComponent<AudioSource>();
-        selectAudio.clip = badSpeak;
-        selectAudio.Play();
-        yield return new WaitForSeconds(4);
-        statusStart = false;
-        i++;
-    }
-```
-
-## Задание 2: Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
-
-Создал второй лист, изменил код из задания #1 для корректной записи данных в Google Sheets
+- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
+- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
 
 ```py
-import numpy as np
-import gspread
 
-
-def model(a, b, x):
-    return a * x + b
-
-
-def loss_function(a, b, x, y):
-    num = len(x)
-    prediction = model(a, b, x)
-    return (0.5 / num) * (np.square(prediction - y)).sum()
-
-
-def optimize(a, b, x, y):
-    num = len(x)
-    prediction = model(a, b, x)
-    da = (1.0 / num) * ((prediction - y) * x).sum()
-    db = (1.0 / num) * (prediction - y).sum()
-    a = a - Lr * da
-    b = b - Lr * db
-    return a, b
-
-
-def iterate(a, b, x, y, times):
-    for i in range(times):
-        a, b = optimize(a, b, x, y)
-    return a, b
-
-
-gc = gspread.service_account(filename='unitydatascience-364516-d5142e967d57.json')
-sh = gc.open("UnitySheets")
-x = [3, 21, 22, 34, 54, 34, 55, 67, 89, 99]
-y = [2, 22, 24, 65, 79, 82, 55, 130, 150, 199]
-x, y = np.array(x), np.array(y)
-n_iterations = 1
-initialized = False
-worksheet = sh.get_worksheet(1)
-
-
-for i in range(2, 9):
-    if not initialized:
-        worksheet.update('A1', "Значение a")
-        worksheet.update('B1', "Значение b")
-        worksheet.update('C1', "Количество итераций")
-        worksheet.update('D1', "Потеря (loss)")
-        initialized = True
-
-    a, b = np.random.rand(1), np.random.rand(1)
-    Lr = 0.000_000_01
-
-    a, b = iterate(a, b, x, y, n_iterations)
-    prediction = model(a, b, x)
-    loss = loss_function(a, b, x, y)
-
-    a_value = a[0]
-    b_value = b[0]
-    worksheet.update(f'A{i}', a_value)
-    worksheet.update(f'B{i}', b_value)
-    worksheet.update(f'C{i}', n_iterations)
-    worksheet.update(f'D{i}', loss)
-    print(f"a: {a_value}, b: {b_value}, iterations: {n_iterations}, loss: {loss}")
-    n_iterations *= 10
+import ScriptEnv
+ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
+oDesktop.RestoreWindow()
+oProject = oDesktop.NewProject()
+oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
+oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
+oDesign = oProject.SetActiveDesign("HFSSDesign1")
+oEditor = oDesign.SetActiveEditor("3D Modeler")
+oEditor.CreateSphere(
+	[
+		"NAME:SphereParameters",
+		"XCenter:="		, "0mm",
+		"YCenter:="		, "0mm",
+		"ZCenter:="		, "0mm",
+		"Radius:="		, "1.0770329614269mm"
+	], 
+)
 
 ```
-Результат выполнения скрипта:
-
-![image](https://user-images.githubusercontent.com/87475288/194067976-abddbf3d-3f56-4513-8264-b8c2aad7edef.png)
-
 
 ## Задание 3
-### - Самостоятельно разработать сценарий воспроизведения звукового сопровождения в Unity в зависимости от изменения считанных данных в задании 2
+### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
 
-Изменил код скрипта так, чтобы он подтягивал данные со второго листа, изменил значения при которых будут воспроизводиться конкретные аудиодорожки:
-```C#
-    void Update()
-    {
-        if (statusStart || i == dataSet.Count + 1) return;
-        if (dataSet["Mon_" + i] >= 1000)
-        {
-            StartCoroutine(PlaySelectAudioBad());
-            Debug.Log(dataSet["Mon_" + i]);
-        }
-        if (dataSet["Mon_" + i] >= 190 && dataSet["Mon_" + i] < 1000)
-        {
-            StartCoroutine(PlaySelectAudioNormal());
-            Debug.Log(dataSet["Mon_" + i]);
-        }
+- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
+- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
 
-        if (!(dataSet["Mon_" + i] <= 190)) return;
-        
-        StartCoroutine(PlaySelectAudioGood());
-        Debug.Log(dataSet["Mon_" + i]);
-    }
-    
-    IEnumerator GoogleSheets()
-    {
-        var currentResp =
-            UnityWebRequest.Get(
-                "https://sheets.googleapis.com/v4/spreadsheets/1rwDRyBppb0PxRqmkm4YcOo6ly1daXr3dHR3ULpX8HMg/values/Sheet2?key=*API-Ключ*");
-        yield return currentResp.SendWebRequest();
-        var rawResp = currentResp.downloadHandler.text;
-        var rawJson = JSON.Parse(rawResp);
-        foreach (var itemRawJson in rawJson["values"])
-        {
-            var parseJson = JSON.Parse(itemRawJson.ToString());
-            var selectRow = parseJson[0].AsStringList;
-            dataSet.Add(("Mon_" + selectRow[0]), float.Parse(selectRow[4]));
-        }
-    }
+```py
+
+import ScriptEnv
+ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
+oDesktop.RestoreWindow()
+oProject = oDesktop.NewProject()
+oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
+oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
+oDesign = oProject.SetActiveDesign("HFSSDesign1")
+oEditor = oDesign.SetActiveEditor("3D Modeler")
+oEditor.CreateSphere(
+	[
+		"NAME:SphereParameters",
+		"XCenter:="		, "0mm",
+		"YCenter:="		, "0mm",
+		"ZCenter:="		, "0mm",
+		"Radius:="		, "1.0770329614269mm"
+	], 
+)
+
 ```
-Вывод в консоль:
-
-![image](https://user-images.githubusercontent.com/87475288/194089444-8bbfba4b-1306-4678-be38-6db36ae5bebe.png)
 
 ## Выводы
-Получил навык работы с Google Sheets как с интсрументом для анализа данных, научился заносить и парсить данные с помощью Google Sheets. К тому же меня 5 раз назвали тираном, но только 1 раз доверились мне и 1 раз восхитились.
+Я создала профиль на GitHub, создала в нем свой первый репозиторий. В репозиторий выгрузила отчет по первой лабораторной работе.
+
+| Plugin | README |
+| ------ | ------ |
+| Dropbox | [plugins/dropbox/README.md][PlDb] |
+| GitHub | [plugins/github/README.md][PlGh] |
+| Google Drive | [plugins/googledrive/README.md][PlGd] |
+| OneDrive | [plugins/onedrive/README.md][PlOd] |
+| Medium | [plugins/medium/README.md][PlMe] |
+| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
 
 ## Powered by
 
