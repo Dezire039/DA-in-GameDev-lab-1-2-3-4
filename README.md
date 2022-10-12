@@ -42,22 +42,27 @@
 Ход работы:
 API для работы с Google Sheets:
 <img width="960" alt="2022-10-12 (1)" src="https://user-images.githubusercontent.com/114075427/195310736-b9e5f288-e077-4106-a160-ef235e2038b7.png">
+ 
 
-(Код для записи данных из скрипта в Google Sheets, создание Unity проекта и скрипта для получения данных из Google Sheets, добавление функционала для воспроизведения аудио в зависимости от полученных данных)
 <img width="960" alt="2022-10-12 (5)" src="https://user-images.githubusercontent.com/114075427/195314593-630d007d-a8a3-4712-84f3-df17a3e68753.png">
-
+(Python код для записи данных из скрипта в Google Sheets)
 <img width="960" alt="2022-10-12 (9)" src="https://user-images.githubusercontent.com/114075427/195315515-400241bc-8338-4ab1-b1ee-ab459fa0fe42.png">
 
 <img width="960" alt="2022-10-12 (10)" src="https://user-images.githubusercontent.com/114075427/195315535-02117c82-9360-4a81-bff7-e5b70a6a8d79.png">
 
 <img width="960" alt="2022-10-12 (11)" src="https://user-images.githubusercontent.com/114075427/195315552-c5eb4b5e-ea1c-4c97-be39-296393b50f8e.png">
-
+(создание Unity проекта и скрипта для получения данных из Google Sheets, добавление функционала для воспроизведения аудио в зависимости от полученных данных)
 
 ## Задание 2
 ### Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
+Код:
+<img width="960" alt="2022-10-12 (12)" src="https://user-images.githubusercontent.com/114075427/195316459-a4fb4040-c245-4b89-9170-114e69f90169.png">
+<img width="960" alt="2022-10-12 (13)" src="https://user-images.githubusercontent.com/114075427/195316475-f88527a4-15e3-42e2-a6bb-0f5b07d5fe3a.png">
+<img width="960" alt="2022-10-12 (14)" src="https://user-images.githubusercontent.com/114075427/195316485-e127418f-4d3b-4a5c-a8bf-f4ac4f2859e4.png">
 
 
 Результаты выполнения кода:
+![3](https://user-images.githubusercontent.com/114075427/195316631-8b9064a9-cefe-4378-aaf4-c664c3a98791.png)
 
 
 
