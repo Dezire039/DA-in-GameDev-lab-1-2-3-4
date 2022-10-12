@@ -46,14 +46,11 @@ API для работы с Google Sheets:
 (Код для записи данных из скрипта в Google Sheets, создание Unity проекта и скрипта для получения данных из Google Sheets, добавление функционала для воспроизведения аудио в зависимости от полученных данных)
 <img width="960" alt="2022-10-12 (5)" src="https://user-images.githubusercontent.com/114075427/195314593-630d007d-a8a3-4712-84f3-df17a3e68753.png">
 
-<img width="960" alt="2022-10-12 (2)" src="https://user-images.githubusercontent.com/114075427/195311350-8c0f59ba-e3e5-47d3-b597-c5548293c1bd.png">
+<img width="960" alt="2022-10-12 (9)" src="https://user-images.githubusercontent.com/114075427/195315515-400241bc-8338-4ab1-b1ee-ab459fa0fe42.png">
 
-<img width="960" alt="2022-10-12 (3)" src="https://user-images.githubusercontent.com/114075427/195311373-5b6f1d9f-4291-4b1e-be0f-7bb3930895c8.png">
+<img width="960" alt="2022-10-12 (10)" src="https://user-images.githubusercontent.com/114075427/195315535-02117c82-9360-4a81-bff7-e5b70a6a8d79.png">
 
-<img width="960" alt="2022-10-12 (4)" src="https://user-images.githubusercontent.com/114075427/195311389-be1a01a0-c927-4b92-8d26-8d200727c0cb.png">
-
-<img width="960" alt="2022-10-12" src="https://user-images.githubusercontent.com/114075427/195311412-d9478507-d79d-42a4-9639-749ec60d9715.png">
-
+<img width="960" alt="2022-10-12 (11)" src="https://user-images.githubusercontent.com/114075427/195315552-c5eb4b5e-ea1c-4c97-be39-296393b50f8e.png">
 
 
 ## Задание 2
