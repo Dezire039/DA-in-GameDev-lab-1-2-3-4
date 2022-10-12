@@ -7,7 +7,7 @@
 | Задание | Выполнение | Баллы |
 | ------ | ------ | ------ |
 | Задание 1 | * | 60 |
-| Задание 2 | # | 20 |
+| Задание 2 | * | 20 |
 | Задание 3 | # | 20 |
 
 знак "*" - задание выполнено; знак "#" - задание не выполнено;
@@ -35,77 +35,44 @@
 - ✨Magic ✨
 
 ## Цель работы
-Ознакомиться с основными операторами зыка Python на примере реализации линейной регрессии.
+Познакомиться с программными средствами для организции передачи данных между инструментами google, Python и Unity
 
 ## Задание 1
-### Написать программы Hello World на Python и Unity
+### Реализовать совместную работу и передачу данных в связке Python - Google-Sheets – Unity.
 Ход работы:
-Скриншот с демонстрацией сохранения документа на google.colab на свой диск с запуском программы выводящей сообщение Hello World: 
-<img width="954" alt="2022-09-26 (1)" src="https://user-images.githubusercontent.com/114075427/192246835-e0a228c2-3118-4e07-aa24-56b65fc89ece.png">
+API для работы с Google Sheets:
+<img width="960" alt="2022-10-12 (1)" src="https://user-images.githubusercontent.com/114075427/195310736-b9e5f288-e077-4106-a160-ef235e2038b7.png">
 
-Скриншот вывода сообщения Hello World в консоль Unity: 
-<img width="956" alt="2022-09-22 (1)" src="https://user-images.githubusercontent.com/114075427/192246901-4c9a8a89-1dbe-405e-85ba-209f3f8c73a6.png">
+(Код для записи данных из скрипта в Google Sheets, создание Unity проекта и скрипта для получения данных из Google Sheets, добавление функционала для воспроизведения аудио в зависимости от полученных данных)
+<img width="960" alt="2022-10-12 (5)" src="https://user-images.githubusercontent.com/114075427/195314593-630d007d-a8a3-4712-84f3-df17a3e68753.png">
+
+<img width="960" alt="2022-10-12 (2)" src="https://user-images.githubusercontent.com/114075427/195311350-8c0f59ba-e3e5-47d3-b597-c5548293c1bd.png">
+
+<img width="960" alt="2022-10-12 (3)" src="https://user-images.githubusercontent.com/114075427/195311373-5b6f1d9f-4291-4b1e-be0f-7bb3930895c8.png">
+
+<img width="960" alt="2022-10-12 (4)" src="https://user-images.githubusercontent.com/114075427/195311389-be1a01a0-c927-4b92-8d26-8d200727c0cb.png">
+
+<img width="960" alt="2022-10-12" src="https://user-images.githubusercontent.com/114075427/195311412-d9478507-d79d-42a4-9639-749ec60d9715.png">
 
 
 
 ## Задание 2
-### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
+### Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
 
-```py
+Результаты выполнения кода:
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
 
-```
 
 ## Задание 3
 ### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
 
-```py
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
 
-```
 
 ## Выводы
-Я создала профиль на GitHub, создала в нем свой первый репозиторий. В репозиторий выгрузила отчет по первой лабораторной работе.
+Я научилась работать с Google Sheets как с интсрументом для анализа данных и парсить данные с помощью Google Sheets.
 
 | Plugin | README |
 | ------ | ------ |
